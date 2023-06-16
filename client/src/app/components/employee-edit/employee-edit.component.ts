@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Employee } from 'src/app/employee';
 import { DataService } from 'src/app/service/data.service';
 
@@ -16,7 +17,8 @@ export class EmployeeEditComponent implements OnInit{
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: DataService
+    private dataService: DataService,
+    private toastr: ToastrService
   ){}
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class EmployeeEditComponent implements OnInit{
 
   updateEmployee(){
     this.dataService.updateData(this.empId, this.employee).subscribe(res => {
-      alert("Employee updated sucessfuly");
+      this.toastr.success("Employee updated successfully");
     });
   }
 

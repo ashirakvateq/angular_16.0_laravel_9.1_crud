@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Employee } from 'src/app/employee';
 import { DataService } from 'src/app/service/data.service';
 
@@ -13,7 +14,10 @@ export class EmployeesComponent implements OnInit{
   employees:any;
   employee = new Employee();
 
-  constructor(private dataService: DataService){}
+  constructor(
+    private dataService: DataService,
+    private toastr: ToastrService
+    ){}
 
   ngOnInit(): void {
     this.getEmployeesData();
@@ -28,14 +32,14 @@ export class EmployeesComponent implements OnInit{
   insertData(){
     this.dataService.insertData(this.employee).subscribe(res => {
       this.getEmployeesData();
-      alert("Employee saved successfully");
+      this.toastr.success("Employee saved successfully");
     });
   }
 
   deleteData(employeeId: number){
     this.dataService.deleteData(employeeId).subscribe(res => {
       this.getEmployeesData();
-      alert("Employee deleted successfully");
+      this.toastr.error("Employee deleted successfully");
     });
   }
 
